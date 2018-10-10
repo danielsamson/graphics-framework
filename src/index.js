@@ -4,15 +4,27 @@ import vsSrc from './shaders/vertexShader.glsl';
 import fsSrc from './shaders/fragmentShader.glsl';
 
 function App() {
-  let gl;
+  let gl, shaderProgram;
 
   function createShaders() {
-    createShaderProgram(gl, vsSrc, fsSrc);
+    shaderProgram = createShaderProgram(gl, vsSrc, fsSrc);
+  }
+
+  function createVertices() {
+    const coords = gl.getAttribLocation(shaderProgram, 'coords');
+    gl.vertexAttrib3f(coords, 0, 0, 0);
+
+    const pointSize = gl.getAttribLocation(shaderProgram, 'pointSize');
+    gl.vertexAttrib1f(pointSize, 10);
+
+    const color = gl.getUniformLocation(shaderProgram, 'color');
+    gl.uniform4f(color, 0, 1, 0, 1);
   }
 
   function setup() {
     gl = initGL(document.getElementsByTagName('body')[0]);
     createShaders();
+    createVertices();
     update();
   }
 

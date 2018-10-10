@@ -35,6 +35,7 @@ export function createShaderProgram(gl, vertexShader, fragmentShader) {
   gl.attachShader(shaderProgram, createFragmentShader(gl, fragmentShader));
   gl.linkProgram(shaderProgram);
   gl.useProgram(shaderProgram);
+  return shaderProgram;
 }
 
 export function createWebGLCanvas(
